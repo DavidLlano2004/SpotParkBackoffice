@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>SpotPark — Prototype</title>
+<link rel="stylesheet" href="ds.css" />
+<style>
+  html, body { margin: 0; height: 100%; background: #060610; }
+  body { display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  #stage { position: relative; }
+  /* phone frame */
+  .phone {
+    width: 390px; height: 844px; border-radius: 54px; position: relative;
+    background: #000; padding: 11px;
+    box-shadow: 0 50px 120px rgba(0,0,0,.6), 0 0 0 2px #20232b, 0 0 0 11px #0b0c10, 0 0 0 13px #2a2d36;
+  }
+  .screen-host {
+    position: absolute; inset: 11px; border-radius: 44px; overflow: hidden;
+    background: var(--bg);
+  }
+  .island {
+    position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+    width: 122px; height: 35px; border-radius: 20px; background: #000; z-index: 120;
+    pointer-events: none;
+  }
+  /* status bar */
+  .statusbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 54px; z-index: 110;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 30px; pointer-events: none;
+    font-family: var(--font); font-weight: 500; font-size: 15px; color: #fff;
+  }
+  .statusbar .ico { display: flex; gap: 6px; align-items: center; }
+  /* home indicator */
+  .home-ind {
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    width: 134px; height: 5px; border-radius: 9px; background: rgba(255,255,255,.5);
+    z-index: 120; pointer-events: none;
+  }
+  /* screen stack */
+  .stack { position: absolute; inset: 0; }
+  .scr {
+    position: absolute; inset: 0; background: var(--bg); overflow: hidden;
+    display: flex; flex-direction: column;
+    will-change: transform, opacity;
+  }
+  .scr-scroll { flex: 1; overflow-y: auto; overflow-x: hidden; }
+
+  #loading { position: fixed; inset: 0; display:flex; align-items:center; justify-content:center;
+    color:#60A5FA; font-family: var(--font); font-size: 14px; letter-spacing:.1em; text-transform:uppercase; }
+</style>
+</head>
+<body>
+  <div id="loading">SpotPark…</div>
+  <div id="stage" class="sp-root"></div>
+
+  <script>
+    // Neutralise entrance animations when the tab is hidden (offscreen iframes
+    // freeze rAF at frame 0, leaving content invisible). Re-enable on focus.
+    (function () {
+      var el = document.documentElement;
+      function sync() { el.classList.toggle('sp-frozen', document.hidden); }
+      sync();
+      document.addEventListener('visibilitychange', sync);
+    })();
+    window.TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "accent": "#C6F24E",
+      "reduceMotion": false
+    }/*EDITMODE-END*/;
+  </script>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="sp-icons.jsx"></script>
+  <script type="text/babel" src="sp-data.jsx"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="sp-ui.jsx"></script>
+  <script type="text/babel" src="sp-screens-core.jsx"></script>
+  <script type="text/babel" src="sp-screens-book.jsx"></script>
+  <script type="text/babel" src="sp-screens-tabs.jsx"></script>
+  <script type="text/babel" src="sp-app.jsx"></script>
+</body>
+</html>
