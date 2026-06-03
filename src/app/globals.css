@@ -1,6 +1,12 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
 /* ─── SpotPark Design System Tokens ─── */
+
+[data-focus-within="true"] {
+  box-shadow: 0 0 0 2px var(--sp-lime-tint) !important;
+}
+
 :root {
   --sp-bg: #F3F4EF;
   --sp-ink: #0F1115;

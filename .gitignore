@@ -40,3 +40,6 @@ app/components/Table.jsx
 
 # tailwind
 tailwind.config.js
+
+#Claude
+.claude
